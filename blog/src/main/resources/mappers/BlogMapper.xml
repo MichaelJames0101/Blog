@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	
+<mapper namespace="cn.zlj.blog.mapper.BlogMapper">
+	
+	<!-- 写博客 -->
+	<!-- void addNew(Blog blog) -->
+	<insert id="addNew">
+	INSERT INTO zlj_blog (
+		uid,code,
+		title,content,
+		visit_num,comment_num,
+		created_user,created_time,
+		modified_user,modified_time
+	) VALUES (
+		#{uid},#{code},
+		#{title},#{content},
+		#{visitNum},#{commentNum},
+		#{createdUser},#{createdTime},
+		#{modifiedUser},#{modifiedTime}
+	)
+	</insert>
+	
+	
+	<!-- 删除博客 -->
+	<!-- Integer deleteBlog(Integer bid) -->
+	<delete id="deleteBlog">
+	DELETE FROM
+		zlj_blog
+	WHERE
+		bid = #{bid}
+	</delete>
+	
+	<!-- 修改博客 -->
+	<!-- Integer updateBlog(
+			@Param("bid") Integer bid,
+			@Param("uid") Integer uid,
+			@Param("code") String code,
+			@Param("title") String title,
+			@Param("content") String content,
+			@Param("modifiedUser") String modifiedUser,
+			@Param("modifiedTime") Date now) -->
+	<update id="updateBlog">
+	UPDATE
+		zlj_blog
+	SET
+		code = #{code},title = #{title},
+		content = #{content},modified_user = #{modifiedUser},
+		modified_time = #{modifiedTime}
+	WHERE
+		bid = #{bid}
+	AND
+		uid = #{uid}
+	</update>
+	
+	<!-- 更新博客的浏览数和评论数 -->
+	<!-- Integer updateNum(
+			@Param("visitNum") Integer visitNum,
+			@Param("commentNum") Integer commentNum) -->
+	<update id="updateNum">
+	UPDATE
+		zlj_blog
+	SET
+		bid = #{bid},
+		visit_num = #{visitNum},
+		comment_num = #{commentNum}
+	WHERE
+		bid = #{bid}
+	</update>
+	
+	
+	<!-- 通过博客id查询博客信息 -->
+	<!-- Blog findByBid(Integer bid) -->
+	<select id="findByBid" resultType="cn.zlj.blog.entity.Blog">
+	SELECT
+		uid,code,
+		title,content,
+		visit_num AS visitNum,comment_num AS commentNum,
+		created_user AS createdUser,created_time AS createdTime
+	FROM
+		zlj_blog
+	WHERE
+		bid = #{bid}
+	</select>
+	
+	
+	<!-- 通过标签号查询同一标签的博客信息列表 -->
+	<!-- List<Blog> findListByCode(String code) -->
+	<select id="findListByCode" resultType="cn.zlj.blog.entity.Blog">
+	SELECT
+		uid,code,
+		title,content,
+		visit_num AS visitNum,comment_num AS commentNum,
+		created_user AS createdUser,created_time AS createdTime
+	FROM
+		zlj_blog
+	WHERE
+		code = #{code}
+	</select>
+	
+	
+	<!-- 通过用户id查询同一用户的博客信息列表 -->
+	<!-- List<Blog> findListByUid(Integer uid) -->
+	<select id="findListByUid" resultType="cn.zlj.blog.entity.Blog">
+	SELECT
+		uid,code,
+		title,content,
+		visit_num AS visitNum,comment_num AS commentNum,
+		created_user AS createdUser,created_time AS createdTime
+	FROM
+		zlj_blog
+	WHERE
+		uid = #{uid}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+

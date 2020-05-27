@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	
+<mapper namespace="cn.zlj.blog.mapper.SiteInfoMapper">
+	
+	<!-- 设置网站信息 -->
+	<!-- void addNew(SiteInfo siteinfo) -->
+	<insert id="addNew">
+	INSERT INTO zlj_siteinfo (
+		creator,admin,
+		admin_pwd,visit_num,
+		start,title,
+		introduction
+	) VALUES (
+		#{creator},#{admin},
+		#{adminPwd},#{visitNum},
+		#{start},#{title},
+		#{introduction}
+	)
+	</insert>
+	
+	<!-- 查询网站信息 -->
+	<!-- SiteInfo findSiteInfo() -->
+	<select id="findSiteInfo" resultType="cn.zlj.blog.entity.SiteInfo">
+	SELECT
+		visit_num,start,
+		title,introduction
+	FROM
+		zlj_siteinfo
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+

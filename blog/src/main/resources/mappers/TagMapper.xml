@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	
+<mapper namespace="cn.zlj.blog.mapper.TagMapper">
+	
+	<!-- 通过标签父编码查询标签信息列表 -->
+	<!-- List<Tag> findByParent(String parent) -->
+	<select id="findByParent" resultType="cn.zlj.blog.entity.Tag">
+	SELECT
+		tid,parent,code,name
+	FROM
+		zlj_tag
+	WHERE
+		parent = #{parent}
+	</select>
+	
+	<!-- 通过标签编码查询具体的标签信息 -->
+	<!-- Tag findByCode(String code) -->
+	<select id = "findByCode" resultType = "cn.zlj.blog.entity.Tag">
+	SELECT
+		tid,parent,code,name
+	FROM
+		zlj_tag
+	WHERE
+		code = #{code}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+

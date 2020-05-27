@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	
+<mapper namespace="cn.zlj.blog.mapper.CommentMapper">
+	
+	<!-- 写评论 -->
+	<!-- Integer addNewComment(Comment comment) -->
+	<insert id="addNewComment">
+	INSERT INTO zlj_comment (
+		uid,bid,
+		content,created_user,
+		created_time,modified_user,
+		modified_time
+	) VALUES (
+		#{uid},#{bid},
+		#{content},#{createdUser},
+		#{createdTime},#{modifiedUser},
+		#{modifiedTime}
+	)
+	</insert>
+	
+	<!-- 根据评论id（cid）删除评论 -->
+	<!-- void deleteBycid(Integer cid) -->
+	<delete id="deleteBycid">
+	DELETE FROM
+		zlj_comment
+	WHERE
+		cid = #{cid}
+	
+	</delete>
+	
+	<!-- 根据博客id获取该博客下的评论总数 -->
+	<!-- Integer getCountByBid(Integer bid) -->
+	<select id="getCountByBid" resultType="java.lang.Integer">
+	SELECT
+		COUNT(cid)
+	FROM
+		zlj_comment
+	WHERE
+		bid = #{bid}
+	</select>
+	
+	
+	<!-- 根据用户id获取该用户发表的评论列表 -->
+	<!-- List<Comment> findListByUid(Integer uid) -->
+	<select id="findListByUid" resultType="cn.zlj.blog.entity.Comment">
+	SELECT
+		cid,bid,content,
+		created_user AS createdUser,created_time AS createdTime
+	FROM
+		zlj_comment
+	WHERE
+		uid = #{uid}
+	</select>
+	
+	<!-- 根据博客id获取该博客的评论列表 -->
+	<!-- List<Comment> findListByBid(Integer bid) -->
+	<select id="findListByBid" resultType="cn.zlj.blog.entity.Comment">
+	SELECT
+		cid,uid,content,
+		created_user AS createdUser,created_time AS createdTime
+	FROM
+		zlj_comment
+	WHERE
+		bid = #{bid}
+	</select>
+	
+	<!-- 根据评论id获取具体评论数据 -->
+	<!-- Comment findByCid(Integer cid) -->
+	<select id="findByCid" resultType="cn.zlj.blog.entity.Comment">
+	SELECT
+		uid,bid,content,
+		created_user AS createdUser,created_time AS createdTime
+	FROM
+		zlj_comment
+	WHERE
+		cid = #{cid}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
